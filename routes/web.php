@@ -45,6 +45,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/users/img/change',[UserController::class,'changeImg'])->name('change.img');
 
     Route::get('/download-privacy', [UserController::class,'download'])->name('download');
+    Route::get('/download/{file}', [UserController::class,'downloadPrivateFile'])->name('download.private');
+
     
     // SECURE
     Route::middleware(['admin'])->prefix('dashboard')->group(function () {
