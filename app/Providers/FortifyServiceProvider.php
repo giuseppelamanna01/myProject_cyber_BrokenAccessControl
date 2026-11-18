@@ -21,7 +21,20 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->instance(LoginResponse::class, new class implements LoginResponse {
+            public function toResponse($request)
+            {
+                $user = Auth::user();
+                
+                Log::info('User logged in', [
+                    'user_id' => $user->id,
+                    'email' => $user->email,
+                    'name' => $user->name,
+                    'timestamp' => now()->toDateTimeString()
+                ]);
+                return back();
+            }
+        });
     }
 
     /**
